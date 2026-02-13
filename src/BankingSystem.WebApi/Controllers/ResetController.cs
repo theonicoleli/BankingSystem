@@ -18,6 +18,6 @@ public class ResetController : ControllerBase
     public async Task<IActionResult> Reset()
     {
         await _repository.Reset();
-        return Ok();
+        return Content("OK");
     }
 }
