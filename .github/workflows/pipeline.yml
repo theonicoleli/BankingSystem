@@ -28,21 +28,3 @@ jobs:
 
     - name: Run Tests
       run: dotnet test --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage"
-
-  deploy:
-    name: 🚀 Deploy to Railway
-    needs: build-and-test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
-      - name: Deploy
-        run: railway up --detach --service BankingSystem
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
