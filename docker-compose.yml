@@ -1,0 +1,22 @@
+services:
+  banking-db:
+    image: postgres:latest
+    container_name: banking-postgres
+    environment:
+      POSTGRES_DB: banking_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+
+  banking-api:
+    build:
+      context: .
+      dockerfile: src/BankingSystem.WebApi/Dockerfile
+    container_name: banking-api
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=banking-db;Port=5432;Database=banking_db;Username=postgres;Password=admin
+    depends_on:
+      - banking-db
