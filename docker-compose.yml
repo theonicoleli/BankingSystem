@@ -1,6 +1,6 @@
 services:
   banking-db:
-    image: postgres:latest
+    image: postgres:15-alpine
     container_name: banking-postgres
     environment:
       POSTGRES_DB: banking_db
@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
+    networks:
+      - banking-network
 
   banking-api:
     build:
@@ -17,6 +19,13 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ConnectionStrings__DefaultConnection=Host=banking-db;Port=5432;Database=banking_db;Username=postgres;Password=admin
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=banking-db;Port=5432;Database=banking_db;Username=postgres;Password=admin;
     depends_on:
       - banking-db
+    networks:
+      - banking-network
+
+networks:
+  banking-network:
+    driver: bridge
