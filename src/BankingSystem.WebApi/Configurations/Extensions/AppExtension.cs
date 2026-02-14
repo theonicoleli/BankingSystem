@@ -13,6 +13,7 @@ public static class AppExtension
     public static IServiceCollection AddWebConfig(this IServiceCollection services, IConfiguration configuration)
     {
         var apiInfo = configuration.GetSection("ApiDocumentation");
+        var allowedOrigins = configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
 
         services.AddEndpointsApiExplorer();
         
@@ -36,6 +37,17 @@ public static class AppExtension
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+        
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                if (allowedOrigins != null && allowedOrigins.Length > 0)
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+            });
+        });
 
         services.AddApplication();
         services.AddInfrastructure(configuration);
@@ -54,6 +66,8 @@ public static class AppExtension
             options.RoutePrefix = string.Empty;
             options.DocumentTitle = title;
         });
+        
+        app.UseCors("AllowAll");
 
         app.UseMiddleware<ErrorHandlingMiddleware>();
         app.ApplyMigrations();
@@ -72,9 +86,7 @@ public static class AppExtension
             try
             {
                 if (db.Database.IsRelational() && db.Database.GetPendingMigrations().Any())
-                {
                     db.Database.Migrate();
-                }
                 break;
             }
             catch (Npgsql.NpgsqlException)
