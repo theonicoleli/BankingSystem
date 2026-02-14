@@ -3,13 +3,15 @@ using BankingSystem.Application.Enums;
 using BankingSystem.Application.Mappers;
 using BankingSystem.Domain;
 using BankingSystem.Domain.Interfaces.Repository;
+using BankingSystem.SharedKernel.Application;
 using BankingSystem.SharedKernel.Application.Results;
 using BankingSystem.SharedKernel.Data;
 using MediatR;
 
 namespace BankingSystem.Application.Features.Accounts.Deposit;
 
-public class DepositCommandHandler : IRequestHandler<DepositCommand, Result<EventResponseDto>>
+public class DepositCommandHandler 
+    : Handler<EventResponseDto>, IRequestHandler<DepositCommand, Result<EventResponseDto>>
 {
     private readonly IAccountRepository _repository;
     private readonly IUnitOfWork _uow;
@@ -31,6 +33,6 @@ public class DepositCommandHandler : IRequestHandler<DepositCommand, Result<Even
         account.Deposit(request.Amount);
         await _uow.CommitAsync();
 
-        return Result<EventResponseDto>.Success(account.ToResponse(AccountDirection.Destination));
+        return Success(account.ToResponse(AccountDirection.Destination));
     }
 }
