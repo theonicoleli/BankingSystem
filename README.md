@@ -223,7 +223,7 @@ Após iniciar a API, você pode acessar a documentação interativa em:
 
 ---
 
-## 📄 Conventions and Best Practices
+## 📄 Convenções e boas práticas
 
 - **Arquitetura Limpa:** Separação clara entre as camadas de domínio, aplicação e infraestrutura.
 - **Early Return Pattern:** O código evita blocos if/else aninhados para melhorar a legibilidade.
