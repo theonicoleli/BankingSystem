@@ -116,7 +116,7 @@ The project follows **GitOps** principles for automated deployment:
 ## 🌍 Live Demo
 
 The application is deployed and ready for testing:
-- **Frontend (UI):** [https://banking-front-lime.vercel.app](https://banking-front-nix06h3od-theonicolelis-projects.vercel.app/)
+- **Frontend (UI):** [https://banking-front-lime.vercel.app](https://banking-front-lime.vercel.app/)
 - **API Documentation (Swagger):** [http://bankingsystem-production-d907.up.railway.app/index.html](http://bankingsystem-production-d907.up.railway.app/index.html)
 
 ---
@@ -248,7 +248,7 @@ O projeto segue os princípios de **GitOps** para deploy automatizado:
 ## 🌍 Demonstração ao Vivo
 
 A aplicação está publicada e pronta para testes:
-- **Interface (Frontend):** [https://banking-front-lime.vercel.app](https://banking-front-nix06h3od-theonicolelis-projects.vercel.app/)
+- **Interface (Frontend):** [https://banking-front-lime.vercel.app](https://banking-front-lime.vercel.app/)
 - **Documentação da API (Swagger):** [http://bankingsystem-production-d907.up.railway.app/index.html](http://bankingsystem-production-d907.up.railway.app/index.html)
 
 ---
